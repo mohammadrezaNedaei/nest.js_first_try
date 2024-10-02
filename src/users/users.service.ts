@@ -5,16 +5,22 @@ import { User } from './user.interface';
 export class UsersService {
   private users: User[] = [];
   findAll() {
-    return this.users;
+    const result = this.users;
+    return result
+      ? { message: 'success', users: result }
+      : { message: 'no users' };
   }
 
   findOne(id: string) {
-    return this.users.map((user) => user.id === id);
+    const result = this.users.find((user) => user.id === id);
+    return result
+      ? { message: 'success', user: result }
+      : { message: 'no user found' };
   }
 
-  create(user: Omit<User, 'id'>): User {
-    const newUser = { id: Date.now.toString(), ...user };
+  create(user: Omit<User, 'id'>) {
+    const newUser: User = { id: Date.now.toString(), ...user };
     this.users.push(newUser);
-    return newUser;
+    return { message: 'user created', user: newUser };
   }
 }
