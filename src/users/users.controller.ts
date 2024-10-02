@@ -17,9 +17,6 @@ export class UsersController {
 
   @Post()
   createUser(@Body() user: Omit<User, 'id'>) {
-    return {
-      message: 'success',
-      user: this.usersService.create(user),
-    };
+    return this.usersService.create(user);
   }
 }
