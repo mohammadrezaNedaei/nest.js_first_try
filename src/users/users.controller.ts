@@ -1,6 +1,15 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Body,
+  Res,
+  HttpStatus,
+} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { User } from './user.interface';
+import { Response } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -16,7 +25,8 @@ export class UsersController {
   }
 
   @Post()
-  createUser(@Body() user: Omit<User, 'id'>) {
-    return this.usersService.create(user);
+  createUser(@Body() user: Omit<User, 'id'>, @Res() res: Response) {
+    const responce = this.usersService.create(user);
+    res.status(HttpStatus.CREATED).json(responce);
   }
 }
