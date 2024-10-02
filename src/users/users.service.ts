@@ -6,7 +6,7 @@ export class UsersService {
   private users: User[] = [];
   findAll() {
     const result = this.users;
-    return result;
+    return result.length ? result : null;
   }
 
   findOne(id: string) {
