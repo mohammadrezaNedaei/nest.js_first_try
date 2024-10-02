@@ -6,21 +6,17 @@ export class UsersService {
   private users: User[] = [];
   findAll() {
     const result = this.users;
-    return result
-      ? { message: 'success', users: result }
-      : { message: 'no users' };
+    return result;
   }
 
   findOne(id: string) {
     const result = this.users.find((user) => user.id === id);
-    return result
-      ? { message: 'success', user: result }
-      : { message: 'no user found' };
+    return result;
   }
 
   create(user: Omit<User, 'id'>) {
     const newUser: User = { id: Date.now.toString(), ...user };
     this.users.push(newUser);
-    return { message: 'user created', user: newUser };
+    return newUser;
   }
 }
