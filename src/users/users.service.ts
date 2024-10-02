@@ -15,7 +15,7 @@ export class UsersService {
   }
 
   create(user: Omit<User, 'id'>) {
-    const newUser: User = { id: Date.now.toString(), ...user };
+    const newUser: User = { id: Date.now().toString(), ...user };
     this.users.push(newUser);
     return newUser;
   }
