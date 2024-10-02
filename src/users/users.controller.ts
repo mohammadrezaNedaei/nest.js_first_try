@@ -18,7 +18,7 @@ export class UsersController {
   getAllUsers(@Res() res: Response) {
     const response = this.usersService.findAll();
     if (response)
-      res.status(HttpStatus.OK).json({ message: 'success', user: response });
+      res.status(HttpStatus.OK).json({ message: 'success', users: response });
     else res.status(HttpStatus.NOT_FOUND).json({ message: 'no user found' });
   }
 
