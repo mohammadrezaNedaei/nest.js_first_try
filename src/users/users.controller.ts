@@ -15,7 +15,7 @@ import { Response } from 'express';
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   @Get()
-  getAllUsers(@Res() res: Response) {
+  async getAllUsers(@Res() res: Response) {
     const response = this.usersService.findAll();
     if (response)
       res.status(HttpStatus.OK).json({ message: 'success', users: response });
@@ -23,7 +23,7 @@ export class UsersController {
   }
 
   @Get('/:id')
-  getUser(@Param('id') id: string, @Res() res: Response) {
+  async getUser(@Param('id') id: string, @Res() res: Response) {
     const response = this.usersService.findOne(id);
     if (response)
       res.status(HttpStatus.OK).json({ message: 'success', user: response });
@@ -31,7 +31,7 @@ export class UsersController {
   }
 
   @Post()
-  createUser(@Body() user: Omit<User, 'id'>, @Res() res: Response) {
+  async createUser(@Body() user: Omit<User, 'id'>, @Res() res: Response) {
     const responce = this.usersService.create(user);
     res.status(HttpStatus.CREATED).json({ message: 'success', user: responce });
   }
