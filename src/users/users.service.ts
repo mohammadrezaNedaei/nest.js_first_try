@@ -6,18 +6,18 @@ import { User, UserDocument } from './schemas/user.schema';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
-  findAll() {
-    const result = this.userModel.find().exec();
+  async findAll() {
+    const result = await this.userModel.find().exec();
     return result;
   }
 
-  findOne(id: string) {
-    const result = this.userModel.findById(id).exec();
+  async findOne(id: string) {
+    const result = await this.userModel.findById(id).exec();
     return result;
   }
 
-  create(user: Omit<User, 'id'>) {
-    const newUser = new this.userModel({ id: Date.now().toString(), ...user });
-    return newUser.save();
+  async create(user: Omit<User, 'id'>) {
+    const newUser = new this.userModel(user);
+    return await newUser.save();
   }
 }
